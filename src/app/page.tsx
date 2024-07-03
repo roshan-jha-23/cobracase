@@ -136,11 +136,11 @@ export default function Home() {
               </div>
               <div className="text-lg leading-8">
                 <p>
-                  "Cobra Case provided an amazing custom phone cover!{" "}
+                  &quot;Cobra Case provided an amazing custom phone cover!{" "}
                   <span className="p-0.5 bg-slate-800 text-white">
                     The quality is top-notch
                   </span>{" "}
-                  and the design process was a breeze. Highly recommend!"
+                  and the design process was a breeze. Highly recommend!&quot;
                 </p>
               </div>
               <div className="flex gap-4 mt-2">
@@ -168,9 +168,9 @@ export default function Home() {
               </div>
               <div className="text-lg leading-8">
                 <p>
-                  "I recently ordered a custom phone cover from Cobra Case and
-                  couldn't be happier with the result! The design process was
-                  straightforward, and{" "}
+                  &quot;I recently ordered a custom phone cover from Cobra Case
+                  and could not be happier with the result! The design process
+                  was straightforward, and{" "}
                   <span className="p-0.5 bg-slate-800 text-white">
                     I was able to personalize my cover exactly how I wanted.
                   </span>{" "}
@@ -182,7 +182,7 @@ export default function Home() {
                     I highly recommend Cobra Case to anyone looking for a unique
                     and high-quality
                   </span>{" "}
-                  phone cover!"
+                  phone cover!&quot;
                 </p>
               </div>
               <div className="flex gap-4 mt-2">
@@ -203,7 +203,7 @@ export default function Home() {
           </div>
         </MaxWidthWrapper>
         <div className="pt-16">
-         <Reviews/>
+          <Reviews />
         </div>
       </section>
     </div>
