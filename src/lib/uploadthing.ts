@@ -1,7 +1,5 @@
-import { createRouteHandler } from "uploadthing/next";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
+import { generateReactHelpers } from "@uploadthing/react";
 
-import { ourFileRouter } from "@/app/api/uploadthing/core";
-
-export const { GET, POST } = createRouteHandler({
-  router: ourFileRouter,
-});
+export const { useUploadThing, uploadFiles } =
+  generateReactHelpers<OurFileRouter>();
