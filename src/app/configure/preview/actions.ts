@@ -35,7 +35,7 @@ export const createCheckoutSession = async ({
     dbUser = await db.user.create({
       data: {
         id: user.id,
-        email: user.email,
+        email: user?.email!,
       },
     });
   }
