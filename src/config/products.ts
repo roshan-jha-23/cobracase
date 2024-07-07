@@ -1,11 +1,12 @@
 export const PRODUCT_PRICES = {
   material: {
-    Silicone:0,
-    polyCarbonate:5_00
+    silicone: 0,
+    polycarbonate: 5_00,
   },
-  finish:{
-    smooth:0,
-    textured:3_00
-  }
-} as const
-export const BASE_PRICE = 14_00;
+  finish: {
+    smooth: 0,
+    textured: 3_00,
+  },
+} as const;
+
+export const BASE_PRICE = 9_00;

@@ -1,36 +1,32 @@
-'use client'
-import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
-import MaxWidthWrapper from './MaxWidthWrapper'
-import {useInView} from 'framer-motion'
-import { cn } from '@/lib/utils'
+"use client";
+
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import { useInView } from "framer-motion";
+import { cn } from "@/lib/utils";
 import Phone from "./Phone";
 
+const PHONES = [
+  "/testimonials/1.jpg",
+  "/testimonials/2.jpg",
+  "/testimonials/3.jpg",
+  "/testimonials/4.jpg",
+  "/testimonials/5.jpg",
+  "/testimonials/6.jpg",
+];
 
-const PHONES=[
-    "/testimonial/1.jpg",
-    "/testimonial/2.jpg",
-    "/testimonial/3.jpg",
-    "/testimonial/4.jpg",
-    "/testimonial/5.jpg",
-    "/testimonial/6.jpg"
-]
+function splitArray<T>(array: Array<T>, numParts: number) {
+  const result: Array<Array<T>> = [];
 
-interface ReviewsProps {
-  
-}
-interface ReviewProps extends HTMLAttributes<HTMLDivElement> {
-  imgSrc:string
-}
-
-function splitArray<T>(array:Array<T>,numParts:number){
-    const result:Array<Array<T>>=[]
-
-    for(let i=0;i<array.length;i++){
-        const idx=i%numParts
-        if(!result[idx]) result[idx]=[]
-        result[idx].push(array[i])
+  for (let i = 0; i < array.length; i++) {
+    const index = i % numParts;
+    if (!result[index]) {
+      result[index] = [];
     }
-    return result;
+    result[index].push(array[i]);
+  }
+
+  return result;
 }
 
 function ReviewColumn({
@@ -79,40 +75,47 @@ function ReviewColumn({
   );
 }
 
-function Review({imgSrc,className,...props}:ReviewProps){
-      const POSSIBLE_ANIMATION_DELAYS = [
-        "0s",
-        "0.1s",
-        "0.2s",
-        "0.3s",
-        "0.4s",
-        "0.5s",
-      ];
-      const animationDelay =
-        POSSIBLE_ANIMATION_DELAYS[
-          Math.floor(Math.random() * POSSIBLE_ANIMATION_DELAYS.length)
-        ];
-   return (
-     <div
-       className={cn(
-         "animate-fade-in rounded-[2.25rem] bg-white p-6 opacity-0 shadow-xl shadow-slate-900/5",
-         className
-       )}
-       style={{ animationDelay }}
-       {...props}
-     >
-       <Phone imgSrc={imgSrc} />
-     </div>
-   );
+interface ReviewProps extends HTMLAttributes<HTMLDivElement> {
+  imgSrc: string;
 }
 
-function ReviewGrid(){
+function Review({ imgSrc, className, ...props }: ReviewProps) {
+  const POSSIBLE_ANIMATION_DELAYS = [
+    "0s",
+    "0.1s",
+    "0.2s",
+    "0.3s",
+    "0.4s",
+    "0.5s",
+  ];
+
+  const animationDelay =
+    POSSIBLE_ANIMATION_DELAYS[
+      Math.floor(Math.random() * POSSIBLE_ANIMATION_DELAYS.length)
+    ];
+
+  return (
+    <div
+      className={cn(
+        "animate-fade-in rounded-[2.25rem] bg-white p-6 opacity-0 shadow-xl shadow-slate-900/5",
+        className
+      )}
+      style={{ animationDelay }}
+      {...props}
+    >
+      <Phone imgSrc={imgSrc} />
+    </div>
+  );
+}
+
+function ReviewGrid() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.4 });
   const columns = splitArray(PHONES, 3);
   const column1 = columns[0];
   const column2 = columns[1];
   const column3 = splitArray(columns[2], 2);
+
   return (
     <div
       ref={containerRef}
@@ -151,17 +154,16 @@ function ReviewGrid(){
   );
 }
 
+export function Reviews() {
+  return (
+    <MaxWidthWrapper className="relative max-w-5xl">
+      <img
+        aria-hidden="true"
+        src="/what-people-are-buying.png"
+        className="absolute select-none hidden xl:block -left-32 top-1/3"
+      />
 
-
-
-const Reviews: FC<ReviewsProps> = ({}) => {
-  return <MaxWidthWrapper className='relative max-w-5xl'>
-    <img   aria-hidden="true" src="/what-people-are-buying.png" 
-    className="
-    absolute select-none hidden xl:block -left-32 top-1/3
-    " alt="behenkichut" />
-    <ReviewGrid/>
-  </MaxWidthWrapper>
+      <ReviewGrid />
+    </MaxWidthWrapper>
+  );
 }
-
-export default Reviews

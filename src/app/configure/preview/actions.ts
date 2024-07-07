@@ -29,9 +29,9 @@ export const createCheckoutSession = async ({
   const { finish, material } = configuration;
 
   let price = BASE_PRICE;
-  if (finish === "texture") price += PRODUCT_PRICES.finish.textured;
-  if (material === "polyCarbonate")
-    price += PRODUCT_PRICES.material.polyCarbonate;
+  if (finish === "textured") price += PRODUCT_PRICES.finish.textured;
+  if (material === "polycarbonate")
+    price += PRODUCT_PRICES.material.polycarbonate;
 
   let order: Order | undefined = undefined;
 
@@ -42,7 +42,7 @@ export const createCheckoutSession = async ({
     },
   });
 
- console.log(existingOrder)
+  console.log(user.id, configuration.id);
 
   if (existingOrder) {
     order = existingOrder;
@@ -70,7 +70,7 @@ export const createCheckoutSession = async ({
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
     payment_method_types: ["card", "paypal"],
     mode: "payment",
-    shipping_address_collection: { allowed_countries: ["DE", "US","IN"] },
+    shipping_address_collection: { allowed_countries: ["DE", "US"] },
     metadata: {
       userId: user.id,
       orderId: order.id,
