@@ -20,30 +20,22 @@ enum PhoneModel {
   iphone13
   iphone14
   iphone15
-  iphone16
 }
 
 enum CaseMaterial {
   silicone
-  polyCarbonate
+  polycarbonate
 }
 
 enum CaseFinish {
   smooth
-  texture
+  textured
 }
 
 enum CaseColor {
   black
   blue
   rose
-  red
-  green
-  purple
-  yellow
-  teal
-  orange
-  pink
 }
 
 model Configuration {
@@ -51,18 +43,19 @@ model Configuration {
   width           Int
   height          Int
   imageUrl        String
+  color           CaseColor?
   model           PhoneModel?
   material        CaseMaterial?
   finish          CaseFinish?
-  color           CaseColor?
   croppedImageUrl String?
   Order           Order[]
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String
-  Order     Order[]
+  id    String  @id @default(cuid())
+  email String
+  Order Order[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -77,15 +70,16 @@ model Order {
   isPaid          Boolean       @default(false)
   status          OrderStatus   @default(awaiting_shipment)
 
-  shippingAdress   ShippingAdress? @relation(fields: [shippingAdressId], references: [id])
-  shippingAdressId String?
-  billingAdress    BillingAdress?  @relation(fields: [billingAdressId], references: [id])
-  billingAdressId  String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
+  shippingAddress   ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
+  shippingAddressId String?
+  billingAddress    BillingAddress?  @relation(fields: [billingAddressId], references: [id])
+  billingAddressId  String?
+
+  createdAt DateTime @default(now())
+  updated   DateTime @updatedAt
 }
 
-model ShippingAdress {
+model ShippingAddress {
   id          String  @id @default(cuid())
   name        String
   street      String
@@ -97,7 +91,7 @@ model ShippingAdress {
   orders      Order[]
 }
 
-model BillingAdress {
+model BillingAddress {
   id          String  @id @default(cuid())
   name        String
   street      String
