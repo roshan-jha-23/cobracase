@@ -31,7 +31,7 @@ export const createCheckoutSession = async ({
   let price = BASE_PRICE;
   if (finish === "texture") price += PRODUCT_PRICES.finish.textured;
   if (material === "polyCarbonate")
-    price += PRODUCT_PRICES.material.polycarbonate;
+    price += PRODUCT_PRICES.material.polyCarbonate;
 
   let order: Order | undefined = undefined;
 
@@ -42,7 +42,7 @@ export const createCheckoutSession = async ({
     },
   });
 
-  console.log(user.id, configuration.id);
+ console.log(existingOrder)
 
   if (existingOrder) {
     order = existingOrder;

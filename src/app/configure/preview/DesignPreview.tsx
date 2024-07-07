@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
 import { createCheckoutSession } from "./actions";
+import LoginModal from "@/components/LoginModal";
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const router = useRouter();
@@ -38,7 +39,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
   let totalPrice = BASE_PRICE;
   if (material === "polyCarbonate")
-    totalPrice += PRODUCT_PRICES.material.polycarbonate;
+    totalPrice += PRODUCT_PRICES.material.polyCarbonate;
   if (finish === "texture") totalPrice += PRODUCT_PRICES.finish.textured;
 
   const { mutate: createPaymentSession } = useMutation({
@@ -79,7 +80,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
           config={{ elementCount: 200, spread: 90 }}
         />
       </div>
-
+      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
 
       <div className="mt-20 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
         <div className="md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2">
@@ -142,7 +143,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                   <div className="flex items-center justify-between py-1 mt-2">
                     <p className="text-gray-600">Soft polycarbonate material</p>
                     <p className="font-medium text-gray-900">
-                      {formatPrice(PRODUCT_PRICES.material.polycarbonate / 100)}
+                      {formatPrice(PRODUCT_PRICES.material.polyCarbonate / 100)}
                     </p>
                   </div>
                 ) : null}
@@ -160,8 +161,8 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
-              isLoading={true}
-              loadingText="loading"
+                isLoading={true}
+                loadingText="loading"
                 onClick={() => handleCheckout()}
                 className="px-4 sm:px-6 lg:px-8"
               >
