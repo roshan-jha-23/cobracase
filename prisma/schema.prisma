@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,12 +6,14 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-enum OrderStatus{
+
+enum OrderStatus {
   fulfilled
   shipped
   awaiting_shipment
 }
-enum  PhoneModel{
+
+enum PhoneModel {
   iphonex
   iphone11
   iphone12
@@ -22,15 +22,18 @@ enum  PhoneModel{
   iphone15
   iphone16
 }
-enum CaseMaterial{
+
+enum CaseMaterial {
   silicone
   polyCarbonate
 }
-enum CaseFinish{
+
+enum CaseFinish {
   smooth
   texture
 }
-enum CaseColor{
+
+enum CaseColor {
   black
   blue
   rose
@@ -43,14 +46,65 @@ enum CaseColor{
   pink
 }
 
-model Configuration{
-  id String @id @default(cuid())
-  width Int
-  height Int
-  imageUrl String
-  model PhoneModel?
-  material CaseMaterial?
-  finish CaseFinish?
-  color CaseColor?
+model Configuration {
+  id              String        @id @default(cuid())
+  width           Int
+  height          Int
+  imageUrl        String
+  model           PhoneModel?
+  material        CaseMaterial?
+  finish          CaseFinish?
+  color           CaseColor?
   croppedImageUrl String?
+  Order           Order[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String
+  Order     Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  configurationId String
+  configuration   Configuration @relation(fields: [configurationId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+  userId          String
+  amount          Float
+  isPaid          Boolean       @default(false)
+  status          OrderStatus   @default(awaiting_shipment)
+
+  shippingAdress   ShippingAdress? @relation(fields: [shippingAdressId], references: [id])
+  shippingAdressId String?
+  billingAdress    BillingAdress?  @relation(fields: [billingAdressId], references: [id])
+  billingAdressId  String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model ShippingAdress {
+  id          String  @id @default(cuid())
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  orders      Order[]
+}
+
+model BillingAdress {
+  id          String  @id @default(cuid())
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  orders      Order[]
 }
