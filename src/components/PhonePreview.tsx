@@ -55,13 +55,14 @@ const PhonePreview = ({
             caseBackgroundColor
           )}
           src={croppedImageUrl}
+          alt="Case color"
         />
       </div>
 
       <div className="relative h-full w-full z-40">
         <img
           alt="phone"
-          src="/clearphone.png"
+          src="/clear-phone.png"
           className="pointer-events-none h-full w-full antialiased rounded-md"
         />
       </div>
