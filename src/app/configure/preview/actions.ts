@@ -2,6 +2,7 @@
 
 import { BASE_PRICE, PRODUCT_PRICES } from "@/config/products";
 import { db } from "@/db";
+import { sendEmail } from "@/lib/mailer";
 import { stripe } from "@/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Order } from "@prisma/client";
@@ -91,6 +92,8 @@ export const createCheckoutSession = async ({
     },
     line_items: [{ price: product.default_price as string, quantity: 1 }],
   });
-
+   await sendEmail({
+     email: user?.email!,
+   });
   return { url: stripeSession.url };
 };

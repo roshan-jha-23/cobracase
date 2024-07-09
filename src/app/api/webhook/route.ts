@@ -1,4 +1,5 @@
 import { db } from "@/db";
+import { sendEmail } from "@/lib/mailer";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -72,7 +73,7 @@ export async function POST(req: Request) {
 
     
     }
-
+     
     return NextResponse.json({ result: event, ok: true });
   } catch (err) {
     console.error(err);
